@@ -1,5 +1,5 @@
 import unittest
-from statistics_service import StatisticsService
+from statistics_service import SortBy, StatisticsService
 from player import Player
 
 class PlayerReaderStub:
@@ -35,9 +35,14 @@ class TestStatisticsService(unittest.TestCase):
     def test_search_team(self):
         team = self.stats.team("PIT")
         assert len(team) == 1
-        assert team[0].name == "Lemieux"
 
-    def test_top_teams_works(self):
+        assert team[0].name == "Lemieux"
+        assert team[0].team == "PIT"
+        assert team[0].goals == 45
+        assert team[0].assists == 54
+        assert team[0].points == 99
+
+    def test_top_player(self):
         top = self.stats.top(1)
         
         assert top[0].name == "Gretzky"
@@ -45,7 +50,44 @@ class TestStatisticsService(unittest.TestCase):
         assert top[0].goals == 35
         assert top[0].assists == 89
         assert top[0].points == 124
-       
+
+    def test_top_player(self):
+        top = self.stats.top(1, None)
+
+        assert top[0].name == "Gretzky"
+        assert top[0].team == "EDM"
+        assert top[0].goals == 35
+        assert top[0].assists == 89
+        assert top[0].points == 124
+
+
+    def test_top_player_with_points(self):
+        top = self.stats.top(1, SortBy.POINTS)
+
+        assert top[0].name == "Gretzky"
+        assert top[0].team == "EDM"
+        assert top[0].goals == 35
+        assert top[0].assists == 89
+        assert top[0].points == 124
+
+    def test_top_player_with_goals(self):
+        top = self.stats.top(1, SortBy.GOALS)
+
+        assert top[0].name == "Lemieux"
+        assert top[0].team == "PIT"
+        assert top[0].goals == 45
+        assert top[0].assists == 54
+        assert top[0].points == 99
+
+    def test_top_player_with_assist(self):
+        top = self.stats.top(1, SortBy.ASSISTS)
+
+        assert top[0].name == "Gretzky"
+        assert top[0].team == "EDM"
+        assert top[0].goals == 35
+        assert top[0].assists == 89
+        assert top[0].points == 124
+
     
     
 
