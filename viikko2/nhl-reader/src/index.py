@@ -1,7 +1,8 @@
 from rich.console import Console
 from rich.table import Table
 from rich.prompt import Prompt
-from player import PlayerReader, PlayerStats
+from player_stats import PlayerStats
+from player_reader import PlayerReader
 
 def plyer_table(season, nationally, players):
     table = Table(title=f"Season {season} players form {nationally}")
