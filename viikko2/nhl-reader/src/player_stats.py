@@ -13,7 +13,10 @@ class PlayerStats:
         return sorted(players, key=lambda p: p.goals + p.assists, reverse=True)
 
     def top_goal_scorers(self, how_many: int) -> list[Player]:
-        """Palauttaa how_many eniten maaleja tehnyttä pelaajaa maalimäärän mukaan laskevassa järjestyksessä"""
+        """
+        Palauttaa how_many eniten maaleja tehnyttä pelaajaa
+        maalimäärän mukaan laskevassa järjestyksessä
+        """
         players: list[Player] = self.reader.get_players()
         # Järjestetään pelaajat maalimäärän mukaan laskevasti ja palautetaan ensimmäiset how_many
         sorted_players = sorted(players, key=lambda p: p.goals, reverse=True)
