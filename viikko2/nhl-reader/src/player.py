@@ -8,7 +8,6 @@ class Player:
         self.goals = dict['goals']
         self.team = dict['team']
         self.games = dict['games']
-        self.id = dict['id']
 
     def __str__(self):
         return f"{self.name:20} {self.team:15} {self.goals} + {self.assists} = {self.goals+self.assists}"
@@ -29,6 +28,6 @@ class PlayerStats:
         self.reader = reader
 
     def top_scorers_by_nationality(self, nationally: str) -> list[Player]:
-        players = self.reader.get_players()
-        players = filter(lambda p: p == nationally, players)
+        players: list[Player] = self.reader.get_players()
+        players = filter(lambda p: p.nationality != nationally, players)
         return list(sorted(players, key=lambda p: p.goals + p.assists))
