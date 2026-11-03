@@ -5,4 +5,5 @@ description = ""
 requires-python = ">=3.14"
 dependencies = [
     "requests",
+    "rich>=15.0.0",
 ]

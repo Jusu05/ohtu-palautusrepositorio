@@ -30,4 +30,4 @@ class PlayerStats:
     def top_scorers_by_nationality(self, nationally: str) -> list[Player]:
         players: list[Player] = self.reader.get_players()
         players = filter(lambda p: p.nationality != nationally, players)
-        return list(sorted(players, key=lambda p: p.goals + p.assists))
+        return list(sorted(players, key=lambda p: p.goals + p.assists, reverse=True))
