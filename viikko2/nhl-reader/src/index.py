@@ -11,7 +11,7 @@ def main():
         players.append(player)
 
     print("Players from FIN:\n")
-    for player in players:
+    for player in sorted(players, key=lambda p: p.goals + p.assists, reverse=True):
         if player.nationality == "FIN":
             print(player)
 
