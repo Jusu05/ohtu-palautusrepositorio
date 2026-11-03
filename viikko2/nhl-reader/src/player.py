@@ -24,3 +24,11 @@ class PlayerReader:
     def get_players(self) -> list[Player]:
         return self._players
 
+class PlayerStats:
+    def __init__(self, reader) -> None:
+        self.reader = reader
+
+    def top_scorers_by_nationality(self, nationally: str) -> list[Player]:
+        players = self.reader.get_players()
+        players = filter(lambda p: p == nationally, players)
+        return list(sorted(players, key=lambda p: p.goals + p.assists))
