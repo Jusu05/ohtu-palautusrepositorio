@@ -11,7 +11,7 @@ Click Login Link
 
 Click Register Link
     Click  text=Register new user
-    Register Page Should Be Open
+    Registration Page Should Be Open
 
 *** Keywords ***
 
