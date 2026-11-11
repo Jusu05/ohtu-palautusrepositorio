@@ -24,9 +24,14 @@ Open And Configure Browser
 Login Page Should Be Open
     Get Title  ==  Login
 
+Register Page Should Be Open
+    Get Title  ==  Register
+
 Main Page Should Be Open
     Get Title  ==  Ohtu Application main page
 
 Go To Login Page
     Go To  ${LOGIN_URL}
 
+Go To Starting Page
+    Go To  ${HOME_URL}
