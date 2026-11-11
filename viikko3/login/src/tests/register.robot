@@ -10,6 +10,22 @@ Register With Valid Username And Password
     Insert User  user1  user1234
     Registration Should Succeed
 
+Register With Password Containing Letters And Numbers
+    Insert User  user1  kalle123
+    Registration Should Succeed
+
+Register With Password Containing Letters And Special Character
+    Insert User  user1  kalle#abc
+    Registration Should Succeed
+
+Register With Password Containing Only Lowercase Letters
+    Insert User  user1  kallekalle
+    Registration Should Fail With Message  Password cannot contain only letters
+
+Register With Password Containing Only Mixed Case Letters
+    Insert User  user1  KalleKalle
+    Registration Should Fail With Message  Password cannot contain only letters
+
 Register With Too Short Username And Valid Password
     Insert User  u  user1234
     Registration Should Fail With Message  Username is too short
@@ -22,12 +38,20 @@ Register With Username That Is Already In Use
     Insert User  kalle  kalle123
     Registration Should Fail With Message  Username already in use
 
+Register With Different Password And Confirmation
+    Insert User  user1  kalle123  kalle124
+    Registration Should Fail With Message  Password and password confirmation do not match
+
+Register With Empty Password Confirmation
+    Insert User  user1  kalle123  ${EMPTY}
+    Registration Should Fail With Message  Password and password confirmation do not match
+
 *** Keywords ***
 Insert User
-    [Arguments]    ${username}    ${password}
+    [Arguments]    ${username}    ${password}    ${password_confirmation}=${password}
     Fill Text  id=username  ${username}
     Fill Text  id=password  ${password}
-    Fill Text  id=password_confirmation  ${password}
+    Fill Text  id=password_confirmation  ${password_confirmation}
     Click  button >> text=Register
 
 Registration Should Succeed
