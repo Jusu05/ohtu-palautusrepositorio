@@ -88,4 +88,11 @@ class TestKauppa(unittest.TestCase):
 
         assert len(self.viitegeneraattori_mock.uusi.call_args_list) ==  2
 
+    def test_poista_tuote_ostoskorista(self) :
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(1)
+        self.kauppa.poista_korista(1)
+
+
+        self.varasto_mock.palauta_varastoon.assert_called() 
         
