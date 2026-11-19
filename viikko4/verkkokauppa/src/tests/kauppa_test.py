@@ -6,8 +6,8 @@ from tuote import Tuote
 class TestKauppa(unittest.TestCase):
     def setUp(self):
         pankki_mock = Mock()
-        viitegeneraattori_mock = Mock()
-        viitegeneraattori_mock.uusi.return_value = 42
+        self.viitegeneraattori_mock = Mock()
+        self.viitegeneraattori_mock.uusi.return_value = 42
         varasto_mock = Mock()
 
         def varasto_saldo(tuote_id):
@@ -21,7 +21,7 @@ class TestKauppa(unittest.TestCase):
 
         self.pankki_mock = pankki_mock
         self.varasto_mock = varasto_mock
-        self.kauppa = Kauppa(varasto_mock, pankki_mock, viitegeneraattori_mock)
+        self.kauppa = Kauppa(varasto_mock, pankki_mock, self.viitegeneraattori_mock)
 
     def test_maksettaessa_ostos_pankin_metodia_tilisiirto_kutsutaan(self):
         self.kauppa.aloita_asiointi()
@@ -75,4 +75,17 @@ class TestKauppa(unittest.TestCase):
         self.kauppa.tilimaksu("pekka", "12345")
         ostos_2 = self.pankki_mock.tilisiirto.call_args
 
-        assert ostos_1 != ostos_2
+        assert ostos_1[0][4] != ostos_2[0][4]
+
+    def test_aina_uusi_viitenumero(self) :
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(1)
+        self.kauppa.tilimaksu("pekka", "12345")
+
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(2)
+        self.kauppa.tilimaksu("pekka", "12345")
+
+        assert len(self.viitegeneraattori_mock.uusi.call_args_list) ==  2
+
+        
