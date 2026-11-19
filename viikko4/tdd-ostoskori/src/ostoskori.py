@@ -3,16 +3,19 @@ from tuote import Tuote
 
 class Ostoskori:
     def __init__(self):
-        self._tuotteet = []
+        self._ostokset: dict[Tuote, Ostos] = {}
 
     def tavaroita_korissa(self):
-        return len(self._tuotteet)
+        return sum(ostos.lukumaara() for ostos in self._ostokset.values())
 
     def hinta(self):
-        return sum(tuote.hinta() for tuote in self._tuotteet)
+        return sum(ostos.hinta() for ostos in self._ostokset.values())
 
     def lisaa_tuote(self, lisattava: Tuote):
-        self._tuotteet.append(Ostos(lisattava))
+        if lisattava in self._ostokset:
+            self._ostokset[lisattava].muuta_lukumaaraa(1)
+        else:
+            self._ostokset[lisattava] = Ostos(lisattava)   
 
     def poista_tuote(self, poistettava: Tuote):
         pass
@@ -21,4 +24,4 @@ class Ostoskori:
         pass
 
     def ostokset(self):
-        return self._tuotteet
+        return list(self._ostokset.values())
