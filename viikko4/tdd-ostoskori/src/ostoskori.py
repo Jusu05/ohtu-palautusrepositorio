@@ -1,3 +1,4 @@
+from ostos import Ostos
 from tuote import Tuote
 
 class Ostoskori:
@@ -11,7 +12,7 @@ class Ostoskori:
         return sum(tuote.hinta() for tuote in self._tuotteet)
 
     def lisaa_tuote(self, lisattava: Tuote):
-        self._tuotteet.append(lisattava)
+        self._tuotteet.append(Ostos(lisattava))
 
     def poista_tuote(self, poistettava: Tuote):
         pass
